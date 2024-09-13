@@ -1,6 +1,6 @@
-# PerAct
+# AugInsert: Learning Robust Visual-Force Policies via Data Augmentation for Object Assembly Tasks
 
-Anonymous Submission. 
+Ryan Diaz, Adam Imdieke, Vivek Veeriah, Karthik Desingh 
 
 
 # Website License
