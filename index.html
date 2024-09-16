@@ -117,7 +117,7 @@
     <div class="container is-max-desktop">
       <div class="columns is-centered">
         <div class="column has-text-centered">
-          <h1 class="title is-1 publication-title">AugInsert: Learning Robust Visual Force-Policies via Data Augmentation for Object Assembly Tasks </h1>
+          <h1 class="title is-1 publication-title">AugInsert: Learning Robust Visual-Force Policies via Data Augmentation for Object Assembly Tasks </h1>
           <h3 class="title is-4 conference-authors"><a target="_blank" href="https://2025.ieee-icra.org">In Review at ICRA 2025</a></h3>
           <div class="is-size-5 publication-authors">
             <span class="author-block">
@@ -303,11 +303,26 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            Transformers have revolutionized vision and natural language processing 
-            with their ability to scale with large datasets. But in robotic manipulation, 
-            data is both limited and expensive. Can we still benefit from Transformers with the right problem formulation? 
+            This paper primarily focuses on learning robust visual-force observation encoders to
+            imitate policies in the context of object assembly tasks. Specifically we focus on the
+            <i>contact phase</i> of the assembly task where both objects (peg and hole) have made contact
+            and the task lies in finding contact-rich maneuvers to complete the assembly. Moreover, we aim 
+            to learn contact-rich manipulation policies with multisensory inputs on limited human demonstration 
+            data expanded via online data augmentation.
           </p>
           <p>
+            We develop a simulation environment with a dual-arm robot manipulator to evaluate the effect of augmented
+            expert demonstration data. We evaluate the performance of our model trained on an increasing number of 
+            augmentations per demonstration and at the same time evaluate the performance with respect to unseen task 
+            variations: <strong>grasp pose, peg/hole shape object body shape, scene appearance, camera pose</strong>, 
+            and <strong>force-torque/proprioception noise</strong>. We show that our proposed data augmentation method helps 
+            in learning a multisensory manipulation policy that is robust to unseen variations, particularly physics variations 
+            such as <strong>grasp pose</strong>.
+          </p>
+          <p>
+            For additional qualitative results and ablation studies, refer to the supplementary material on this webpage!
+          </p>
+          <!-- <p>
             We investigate this question with <span class="dperact">PerAct</span>, a
             language-conditioned behavior-cloning agent for multi-task 6-DoF manipulation.
             <span class="dperact">PerAct</span> encodes language goals and RGB-D voxel observations with a 
@@ -315,13 +330,7 @@
             actions by “detecting the next best voxel action”. Unlike frameworks that operate on 2D images, the voxelized observation
             and action space provides a strong structural prior for efficiently learning 6-DoF
             policies. 
-          </p>
-          <p>
-            With this formulation, we train <b>a single multi-task Transformer</b> for 18
-            <a target="_blank" href="https://sites.google.com/view/rlbench">RLBench</a> (with 249 variations) and 7 real-world tasks (with 18 variations) from just a few demonstrations per task. Our
-            results show that <span class="dperact">PerAct</span> significantly outperforms unstructured image-to-action
-            agents (by 34x) and 3D ConvNet baselines (by 2.8x) for a wide range of tabletop tasks.
-          </p>
+          </p> -->
         </div>
       </div>
     </div>
@@ -332,7 +341,7 @@
   </div>
 
 
-  <div class="columns is-centered has-text-centered">
+  <!-- <div class="columns is-centered has-text-centered">
     <div class="column is-two-thirds">
       <h2 class="title is-3">Video</h2>
       <div class="publication-video">
@@ -340,7 +349,7 @@
                 frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
       </div>
     </div>
-  </div>
+  </div> -->
 
 </section>
 
