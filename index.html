@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="description"
         content="AugInsert: Learning Robust Visual-Force Policies via Data Augmentation for Object Assembly Tasks">
-  <meta name="keywords" content="Transformers, Language Grounding, Manipulation">
+  <meta name="keywords" content="Contact-Rich Manipulation, Imitation Learning, Data Augmentation">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>AugInsert</title>
 
@@ -303,21 +303,19 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            This paper primarily focuses on learning robust visual-force observation encoders to
-            imitate policies in the context of object assembly tasks. Specifically we focus on the
-            <i>contact phase</i> of the assembly task where both objects (peg and hole) have made contact
-            and the task lies in finding contact-rich maneuvers to complete the assembly. Moreover, we aim 
-            to learn contact-rich manipulation policies with multisensory inputs on limited human demonstration 
-            data expanded via online data augmentation.
+            This paper primarily focuses on learning robust visual-force policies in the context of high-precision object assembly
+            tasks. Specifically, we focus on the <i>contact phase</i> of the assembly task where both objects (peg and hole) have made 
+            contact and the objective lies in maneuvering the objects to complete the assembly. Moreover, we aim to learn contact-rich
+            manipulation policies with multisensory inputs on limited expert data by expanding human demonstrations via online data
+            augmentation.
           </p>
           <p>
-            We develop a simulation environment with a dual-arm robot manipulator to evaluate the effect of augmented
-            expert demonstration data. We evaluate the performance of our model trained on an increasing number of 
-            augmentations per demonstration and at the same time evaluate the performance with respect to unseen task 
-            variations: <strong>grasp pose, peg/hole shape object body shape, scene appearance, camera pose</strong>, 
-            and <strong>force-torque/proprioception noise</strong>. We show that our proposed data augmentation method helps 
-            in learning a multisensory manipulation policy that is robust to unseen variations, particularly physics variations 
-            such as <strong>grasp pose</strong>.
+            We develop a simulation environment with a dual-arm robot manipulator to evaluate the effect of augmented expert demonstration
+            data. Our focus is on evaluating the robustness of our modle with respect to certain task variations: <strong>grasp pose, peg/hole 
+            shape object body shape, scene appearance, camera pose</strong>, and <strong>force-torque/proprioception noise</strong>. We show that 
+            our proposed data augmentation method helps in learning a multisensory manipulation policy that is robust to unseen instances of these 
+            variations, particularly physical variations such as <strong>grasp pose</strong>. Additionally, our ablative studies show the 
+            significant contribution of force-torque data to the robustness of our model.
           </p>
           <p>
             For additional qualitative results and ablation studies, refer to the supplementary material on this webpage!
