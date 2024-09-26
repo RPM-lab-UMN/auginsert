@@ -8,33 +8,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>AugInsert</title>
 
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-FV4ZJ9PVSV"></script>
+  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-FV4ZJ9PVSV"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
 
     gtag('config', 'G-FV4ZJ9PVSV');
-  </script>
+  </script> -->
 
   <script>
-    function updateSingleVideo() {
-      var demo = document.getElementById("single-menu-demos").value;
-      var task = document.getElementById("single-menu-tasks").value;
-      var inst = document.getElementById("single-menu-instances").value;
+    function updateRealWorldVideo() {
+      var variation = document.getElementById("task-variation").value;
 
-      console.log("single", demo, task, inst)
+      // console.log("single", demo, task, inst)
 
-      var video = document.getElementById("multi-task-result-video");
-      video.src = "media/results/sim_rollouts/" + 
-                  "n" +
-                  demo +
-                  "-" +
-                  task +
-                  "-" +
-                  inst +
+      var video = document.getElementById("real-world-canonical-video");
+      video.src = "media/results/real_world/" + 
+                  "real_world_" +
+                  variation +
+                  "_env" +
                   ".mp4"
-      video.playbackRate = 1.75;
+      video.playbackRate = 1.0;
       video.play();
     }
 
@@ -347,6 +342,14 @@
           Coming soon!
         </p>
 
+        <!-- Offline vs. online augmentation -->
+
+        <!-- Training set experiments visualization -->
+
+        <!-- Attention visualization -->
+
+        <!-- Canonical success rates for all experiments -->
+
         <br/>
         <br/>
 
@@ -356,63 +359,37 @@
           Coming soon!
         </p>
 
-        <!-- <div class="columns">
+        <!-- Canonical experiments graph -->
+
+        <!-- Canonical experiments visualization -->
+
+        <div class="columns">
           <div class="column has-text-centered">
-            <h3 class="title is-5">One Multi-Task Transformer</h3>
+            <h3 class="title is-5">Real World Rollouts: Model Trained on <i>No Variations</i></h3>
 
-            Trained with
+            Model evaluated on
             <div class="select is-small">
-              <select id="single-menu-demos" onchange="updateSingleVideo()">
-              <option value="10">10</option>
-              <option value="100" selected="selected">100</option>
+              <select id="single-menu-demos" onchange="updateRealWorldVideo()">
+              <option value="canonical" selected="selected">Canonical (No Variations)</option>
+              <option value="grasp">Grasp Pose</option>
+              <option value="body_shape">Object Body Shape</option>
               </select>
             </div>
-            demos per task, evaluated on 
-            <div class="select is-small">     
-              <select id="single-menu-tasks" onchange="updateSingleVideo()">
-              <option value="open_drawer" selected="selected">open drawer</option>
-              <option value="slide_block">slide block</option>
-              <option value="sweep_to_dustpan">sweep to dustpan</option>
-              <option value="meat_off_grill">meat off grill</option>
-              <option value="turn_tap">turn tap</option>
-              <option value="put_in_drawer">put in drawer</option>
-              <option value="close_jar">close jar</option>
-              <option value="drag_stick">drag stick</option>
-              <option value="stack_blocks">stack blocks</option>
-              <option value="screw_bulb">screw bulb</option>
-              <option value="put_in_safe">put in safe</option>
-              <option value="place_wine">place wine</option>
-              <option value="put_in_cupboard">put in cupboard</option>
-              <option value="sort_shape">sort shape</option>
-              <option value="push_buttons">push buttons</option>
-              <option value="insert_peg">insert peg</option>
-              <option value="stack_cups">stack cups</option>
-              <option value="place_cups">place cups</option>
-              </select>
-            </div>
-            episode
-            <div class="select is-small">
-              <select id="single-menu-instances" onchange="updateSingleVideo()">
-              <option value="s1">01</option>
-              <option value="s2" selected="selected">02</option>
-              <option value="s3">03</option>
-              <option value="s4">04</option>
-              <option value="s5">05</option>
-              </select>
-            </div>
-            <br/>
-            <br/>
+            task variation.
 
-            <video id="multi-task-result-video"
+            <video id="real-world-canonical-video"
                    muted
                    autoplay
                    loop
                    width="100%">
-              <source src="media/results/sim_rollouts/n10-open_drawer-s2.mp4"
+              <source src="media/results/real_world/real_world_canonical_env.mp4"
                       type="video/mp4">
             </video>
           </div>
-        </div> -->
+        </div>
+
+        <!-- Modality input ablation graph -->
+
         <!-- </br>
         </br> -->
 
