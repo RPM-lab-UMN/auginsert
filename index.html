@@ -321,39 +321,31 @@
 
 </section>
 
-<!-- <section class="section">
+<section class="section">
   <div class="container is-max-widescreen">
 
     <div class="rows">
 
-
-
     <div class="rows is-centered ">
       <div class="row is-full-width">
-        <h2 class="title is-3"><span class="dperact">PerAct</span></h2>
-
-
-        <h3 class="title is-4">A Transformer for Detecting Actions</h3>
-        <div class="content has-text-justified">
-      
-        </div>
+        <h2 class="title is-3">Model Architecture</h2>
+      <img src="media/figures/model_architecture.pdf" class="interpolation-image" 
+      alt="Interpolate start reference image." />
+      </br>
+      </br>
         <p>
-          <span class="dperact">PerAct</span> is a language-conditioned behavior-cloning agent trained with supervised learning to <i>detect actions</i>. Instead of using object-detectors, instance-segmentors, or pose-estimators to represent a scene and then learning a policy, <span class="dperact">PerAct</span> directly learns <b>perceptual representations of actions</b> conditioned on language goals. This <a target="_blank" href="https://en.wikipedia.org/wiki/Ecological_psychology">action-centric approach</a> with a unified observation and action space makes <span class="dperact">PerAct</span> applicable to a broad range of tasks involving articulated objects, deformable objects, granular media, and even some non-prehensile interactions with tools.  
+          Our behavior cloning framework implementation is based off of <a target="_blank" href="https://robomimic.github.io">Robomimic</a>. To encode our observations, we draw upon the success of <a target="_blank" href="https://www.mmintlab.com/research/vtt/">visuotactile transformer</a> encoders and utilize a similar attention-based mechanism for RGB and tactile modality fusion. Rather than performing self-attention directly with the input tokens, we found that introducing a cross-attention step similar to the <a target="_blank" href="https://deepmind.google/discover/blog/building-architectures-that-can-handle-the-worlds-data/">PerceiverIO</a> architecture seemed to work best for our task. We tokenize our inputs by computing linear projections of both visual patches (as in <a target="_blank" href="https://arxiv.org/abs/2010.11929">vision transformers</a>) for RGB inputs and individual readings per timestep for the force-torque input, and then add modality-specific position encodings. We then cross-attend these input tokens with a set of 8 learned latent vectors that then travel through a series of self-attention layers before ultimately being compressed and projected (as in VTT) to an output latent embedding. We encode proprioception with a multilayer perceptron to get an output embedding and concatenate both output embeddings to get the input to the policy network. The policy network is then a multilayer perceptron that outputs 3-dimensional delta actions.
         </p>
-        </br>
-        </br>
-        <img src="media/figures/arch.png" class="interpolation-image" 
-         alt="Interpolate start reference image." />
-        </br>
-        </br>
-          <p>
+        <!-- </br>
+        </br> -->
+          <!-- <p>
               <span class="dperact">PerAct</span> takes as input a language goal and a voxel grid reconstructed from RGB-D sensors. The voxels are split into 3D patches (like <a target="_blank" href="https://arxiv.org/abs/2010.11929">vision transformers</a> split images into 2D patches), and the language goal is encoded with a pre-trained language model. The language and voxel features are appended together as a sequence and encoded with a <a target=”_blank” href="https://www.deepmind.com/blog/building-architectures-that-can-handle-the-worlds-data">PerceiverIO Transformer</a> to learn per-voxel features. These features are then reshaped with linear layers to predict a discretized translation, rotation, gripper open, and collision avoidance action, which can be executed with a motion-planner. 
               
               Overall, the voxelized observation and action space provides a strong structural prior for efficiently learning 6-DoF polices. Checkout our <a target="_blank" href="https://colab.research.google.com/drive/1HAqemP4cE81SQ6QO1-N85j5bF4C0qLs0?usp=sharing">Colab Tutorial</a> for an annotated guide on implemententing <span class="dperact">PerAct</span> and training it from scratch on a single GPU.
-          </p>
-        </br>
-        </br>
-        <h3 class="title is-4">Encoding High-Dimensional Input</h3>
+          </p> -->
+        <!-- </br>
+        </br> -->
+        <!-- <h3 class="title is-4">Encoding High-Dimensional Input</h3>
           <p class="justify">
             <img src="media/figures/perceiver.png" class="interpolation-image" width="480" align="right"
                  style="margin:0% 4% "
@@ -361,15 +353,13 @@
              The input grid is 100&times;100&times;100 = 1 million voxels. After extracting 5&times;5&times;5 patches, the input is 20&times;20&times;20 = 8000 embeddings long. Despite this long sequence, Perceiver uses a small set of latent vectors to encode the input. These latent vectors are randomly initialized and trained end-to-end. This approach decouples the depth of the Transformer self-attention layers from the dimensionality of the input space, which allows us train <span class="dperact">PerAct</span> on very large input voxel grids. Perceiver has been deployed in several domains like <a target="_blank" href="https://www.deepmind.com/publications/perceiver-ar-general-purpose-long-context-autoregressive-generation">long-context auto-regressive generation</a>, <a target="_blank" href="https://arxiv.org/abs/2204.14198">vision-language models for few-shot learning</a>, <a target="_blank" href="https://arxiv.org/abs/2107.14795">image and audio classification, and optical flow prediction.</a>
           </p>
         <br/>
-        <br/>
+        <br/> -->
 
+        <!-- <h2 class="title is-3">Results</h2> -->
 
+        <!-- <h3 class="title is-4">Simulation Results</h3> -->
 
-        <h2 class="title is-3">Results</h2>
-
-        <h3 class="title is-4">Simulation Results</h3>
-
-        <div class="columns">
+        <!-- <div class="columns">
           <div class="column has-text-centered">
             <h3 class="title is-5">One Multi-Task Transformer</h3>
 
@@ -425,12 +415,11 @@
                       type="video/mp4">
             </video>
           </div>
-        </div>
-        </br>
-        </br>
+        </div> -->
+        <!-- </br>
+        </br> -->
 
-        <h3 class="title is-4">Action Predictions</h3>
-
+        <!-- <h3 class="title is-4">Action Predictions</h3>
         <div class="columns">
           <div class="column has-text-centered">
             <h3 class="title is-5">Q-Prediction Examples</h3>
@@ -444,12 +433,12 @@
               <option value="tape">"put the tape in the top drawer"</option>
               </select>
             </div>
-          </div>
+          </div> -->
 
       </div>
     </div>
   </div>
-</section> -->
+</section>
 
 <!-- <video id="q-pred-video"
        muted
