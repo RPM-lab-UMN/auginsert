@@ -358,7 +358,7 @@
               <select id="task-variation-attnvis" onchange="updateAttnVisVideo()">
               <option value="canonical" selected="selected">Canonical (No Variations)</option>
               <option value="grasp">Grasp Pose</option>
-              <option value="peg_hole_shape">Peg/Hole Pose</option>
+              <option value="peg_hole_shape">Peg/Hole Shape</option>
               <option value="body_shape">Object Body Shape</option>
               <option value="visual">Scene Appearance</option>
               <option value="camera_angle">Camera Pose</option>
@@ -414,7 +414,7 @@
           policies trained in simulation, our real-world policies predict two-dimensional delta actions in the axes perpendicular to the 
           axis of insertion, in order to prevent potentially unsafe interactions that may occur as a result of a premature insertion attempt.
           Once the peg and hole are aligned, the compliant arm automatically moves its held object forward to complete the insertion. We train
-          our real-world models with the same hyperparameters with those in simulation, although we only initiate 1 training seed per model
+          our real-world models with the same hyperparameters as those in simulation, although we only initiate 1 training seed per model
           (rather than 6). Additionally, we evaluate each model at the end of the entire training process, rather than performing training set 
           rollouts during the training process to determine the best checkpoint. Successes and failures follow the same general criteria as in 
           simulation, though a human manually annotates successes and failures per trial. 
@@ -422,9 +422,41 @@
         <br/>
         <br/>
 
-        <h4 class="title is-5">Real World Results</h4>
+        <h4 class="title is-5">Real World Results: Task Variation Difficulty</h4>
 
         <!-- Canonical experiments graph -->
+
+        <p class="justify">
+          <img src="media/figures/ablation_real_world_canonical.png" class="interpolation-image" width="480" align="right" style="margin:0% 4% " alt="Interpolate start reference image." />
+          As a real-world analog to our simulation experiment aimed towards determining the difficulty of generalization for each of our task 
+          variations, we evaluate a real-world policy trained on a dataset of human-generated demonstrations with no applied task variations
+          on real-world versions of a subset of our task variations. Reported success rates over 20 rollouts can be found in the following figure:
+        </p>
+
+        <!-- <p>
+          As a real-world analog to our simulation experiment aimed towards determining the difficulty of generalization for each of our task 
+          variations, we evaluate a real-world policy trained on a dataset of human-generated demonstrations with no applied task variations
+          on real-world versions of a subset of our task variations. Reported success rates over 20 rollouts can be found in the figure below:
+        </p> -->
+        <!-- <br/>
+
+        <div class="rows is-centered ">
+          <img src="media/figures/ablation_real_world_canonical.png" class="interpolation-image" 
+          alt="Interpolate start reference image."/>
+          <p></p>
+        </div> -->
+        <br/>
+
+        <p>
+          <strong>Takeaways:</strong> Like in simulation, we observe that <i>Grasp Pose</i> variations seem to be the most difficult to generalize
+          to, while the model is able to handle the mostly unisensory perturbations of <i>Object Body Shape</i> and <i>Scene Appearance</i>. We also 
+          notice that our model struggles with <i>Grasp Pose</i> even when rotational grasp variations are removed; we hypothesize that this may be
+          because a translational offset disrupts the desired behavior of lining up end-effector positions (given from proprioceptive input) in order
+          to line up the peg and hole (i.e. solving the task can no longer be done by just matching the end-effector positions of the two arms). 
+          Including <i>Grasp Pose</i> variations into the training dataset (as was done in simulation through online augmentation) may also improve
+          performance in the real world.
+        </p>
+
 
         <!-- Canonical experiments visualization -->
 
