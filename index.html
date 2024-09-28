@@ -32,16 +32,17 @@
       video.play();
     }
 
-    function updateQpredVideo() {
-      var task = document.getElementById("single-menu-qpred").value;
+    function updateAttnVisVideo() {
+      var attnVisVariation = document.getElementById("task-variation-attnvis").value;
 
-      console.log("qpred", task)
+      // console.log("qpred", task)
 
-      var video = document.getElementById("q-pred-video");
-      video.src = "media/results/qpred/" + 
-                  task + 
+      var video = document.getElementById("attnvis-video");
+      video.src = "media/results/attnvis/" + 
+                  attnVisVariation +
+                  '_attnvis' +
                   ".mp4"
-      video.playbackRate = 1.75;
+      video.playbackRate = 1.0;
       video.play();
     }
 
@@ -323,7 +324,7 @@
     <div class="rows is-centered ">
       <div class="row is-full-width">
         <h2 class="title is-3">Model Architecture</h2>
-      <img src="media/figures/model_architecture.pdf" class="interpolation-image" 
+      <img src="media/figures/model_architecture.png" class="interpolation-image" 
       alt="Interpolate start reference image." />
       </br>
       </br>
@@ -337,8 +338,56 @@
 
         <h3 class="title is-4">Simulation Experiments</h3>
 
+        <h4 class="title is-5">Attention Visualization</h4>
+
         <p>
-          Coming soon!
+          To gain further insight into the information being learned by our model, we visualize the attention weights in the latent vector cross-attention 
+          step of the transformer visuotactile encoder. For each modality, we plot attention weights as proportions of total attention to tokens in that
+          specific modality averaged over the 8 learned latent vectors. These weights are visualized as heatmaps overlayed on left and right wristview images 
+          for visual attention, and bars for each timestep under the force reading for tactile attention. We also plot the proportion of total attention for 
+          each modality (visual and tactile) during the course of a rollout.
+        </p>
+
+        <div class="columns"></div>
+          <div class="column has-text-centered">
+            <h3 class="title is-5">Attention Visualization: Model Trained on <i>Grasp Pose</i>, <i>Peg/Hole Shape</i>, and <i>Object Body Shape</i></h3>
+
+            Model evaluated on
+            <div class="select is-small">
+              <select id="task-variation-attnvis" onchange="updateAttnVisVideo()">
+              <option value="canonical" selected="selected">Canonical (No Variations)</option>
+              <option value="grasp">Grasp Pose</option>
+              <option value="peg_hole_shape">Peg/Hole Pose</option>
+              <option value="body_shape">Object Body Shape</option>
+              <option value="visual">Scene Appearance</option>
+              <option value="camera_angle">Camera Pose</option>
+              <option value="sensor_noise">Sensor Noise</option>
+              <option value="all_vars">All Variations</option>
+              </select>
+            </div>
+            task variation (videos sped up x2)
+            <br/>
+            <br/>
+            <video id="attnvis-video"
+                   muted
+                   autoplay
+                   loop
+                   width="80%">
+              <source src="media/results/attn_vis/canonical_attnvis.mp4"
+                      type="video/mp4">
+            </video>
+
+            <p><strong>NOTE:</strong> 5 rollouts per video (50 rollouts for experiment results).</p>
+          </div>
+        </div>
+
+        <p>
+          <strong>Takewaays:</strong> Despite our model taking in twice as many visual tokens (72 tokens, 36 per view) as 
+          tactile ones (32 tokens), we observe that tactile attention takes up almost the entire proportion of attention across
+          the input (as seen in the right-most plot of the videos). This finding provides further evidence to the importance of tactile 
+          information over visual information as discussed in our paper, where we found that removing visual information from our input had 
+          little impact on the robustness of our model. Furthermore, we observe that the visual attention is mostly focused on semantically insignficant parts of the 
+          scene, such as the gripper at the bottom of the view, suggesting that the model is not receiving much useful visual information.
         </p>
 
         <!-- Offline vs. online augmentation -->
@@ -355,6 +404,22 @@
         <h3 class="title is-4">Real World Experiments</h3>
 
         <!-- Real world setup definition -->
+
+        <h4 class="title is-5">Real World Experiment Setup</h4>
+
+        <p>
+          Our real-world task setup is built to mirror our simulation setup as closely as possible. We designate one arm to be compliant,
+          applying a constant amount of force while the other arm moves according to the actions given to it by the policy. In contrast to
+          policies trained in simulation, our real-world policies predict two-dimensional delta actions in the axes perpendicular to the 
+          axis of insertion, in order to prevent potentially unsafe interactions that may occur as a result of a premature insertion attempt.
+          Once the peg and hole are aligned, the compliant arm automatically moves its held object forward to complete the insertion. We train
+          our real-world models with the same hyperparameters with those in simulation, although we only initiate 1 training seed per model
+          (rather than 6). Additionally, we evaluate each model at the end of the entire training process, rather than performing training set 
+          rollouts during the training process to determine the best checkpoint. Successes and failures follow the same general criteria as in 
+          simulation, though a human manually annotates successes and failures per trial. 
+        </p>
+
+        <h4 class="title is-5">Real World Results</h4>
 
         <!-- Canonical experiments graph -->
 
@@ -384,6 +449,9 @@
               <source src="media/results/real_world/real_world_canonical.mp4"
                       type="video/mp4">
             </video>
+            <br/>
+            <br/>
+            <p><strong>NOTE:</strong> 5 rollouts per video (20 rollouts for experiment results).</p>
           </div>
         </div>
 
