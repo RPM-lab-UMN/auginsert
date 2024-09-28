@@ -373,7 +373,7 @@
                    muted
                    autoplay
                    loop
-                   width="80%">
+                   width="95%">
               <source src="media/results/attn_vis/canonical_attnvis.mp4"
                       type="video/mp4">
             </video>
@@ -392,9 +392,45 @@
         </p>
 
         <!-- Offline vs. online augmentation -->
-        <!-- <h4 class="title is-5">Data Augmentation Strategy Experiment</h4> -->
+        <h4 class="title is-5">Comparing Data Augmentation Methods for Model Robustness</h4>
 
+        <p>
+          In an effort to evaluate the validity of the online augmentation method for increasing the robustness of our model, we construct a dataset
+          of human-generated trajectories with an <i>extended</i> set of visual variations and sensor noise, attempting to emulate a baseline data 
+          augmentation method that applies augmentations independently to each sensory modality offline during training. More specifically, we generate 
+          a dataset with training set variations of <i>Scene Appearance</i> (including object color, floor texture, and lighting), <i>Camera Pose</i>, and
+          <i>Sensor Noise</i> with 12 augmentations per demonstration, but rather than keep applied variations consistent through each augmented rollout, we apply new instances of <i>Scene Appearance</i> 
+          and <i>Camera Pose</i> variations in each step of the demonstration. We also multiply the force and torque history reading by a random constant (from
+          0.1 to 2.0) independently determined each frame, following a similar data augmentation strategy used in <a href="https://arxiv.org/abs/2104.14223">InsertionNet</a>.
+          We denote this dataset as <strong>Expanded Visual+Noise</strong>.
+        </p>
+        <br/>
 
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-two-thirds">
+            <iframe src="media/video/offline_aug_dataset.mp4"
+                    frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+          </div>
+          <p>
+            Visualization of augmented observations collected for the <strong>Expanded Visual+Noise</strong> Dataset
+          </p>
+        </div>
+        <br/>
+
+        <p class="justify"></p>
+          <img src="media/figures/ablation_training_set_extended.png" class="interpolation-image" width="640" align="right" style="margin:0% 4% " alt="Interpolate start reference image." />
+          We report % success rate change from the canonical environment success rate on models trained on the <strong>Expanded Visual+Noise</strong> dataset and compare 
+          it with the original training set models from our paper (namely <strong>Visual+Sensor Noise</strong> that does not apply new variation instances per frame and 
+          <strong>Base</strong> that includes <i>Grasp Pose</i> variations).
+        </p>
+        <br/>
+
+        <p>
+          <strong>Takeaways:</strong> We observe that our dataset with an expanded set of augmentations independently applied to each sensory modality does not necessarily 
+          improve robustness on most task variations (save for <i>Peg/Hole Shape</i>) compared to the original <strong>Visual+Sensor Noise</strong> dataset that was less extensive in terms of data augmentation. Most crucially, we
+          do not see a significant improvement on <i>Grasp Pose</i> variations, validating the effect of non-independent multisensory data augmentation via trajectory replay. Thus, we have shown that even
+          extensive independent augmentation of our multisensory input may not be enough to deal with certain task variations involved in our contact-rich task.
+        </p>
 
         <!-- Training set experiments visualization -->
 
@@ -457,7 +493,7 @@
             <div class="select is-small">
               <select id="task-variation" onchange="updateRealWorldVideo()">
               <option value="canonical" selected="selected">Canonical (No Variations)</option>
-              <option value="grasp">Grasp Pose</option>
+              <option value="grasp">Grasp Pose (XT+ZR)</option>
               <option value="body_shape">Object Body Shape</option>
               <option value="visual">Visual (Lighting/Object Color)</option>
               </select>
