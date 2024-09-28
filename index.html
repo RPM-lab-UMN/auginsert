@@ -334,9 +334,9 @@
         <br/>
         <br/>
 
-        <h2 class="title is-3">Experiments and Results</h2>
+        <h2 class="title is-3">Supplementary Experiments and Results</h2>
 
-        <h3 class="title is-4">Simulation Experiments</h3>
+        <h3 class="title is-4">Additional Simulation Experiments</h3>
 
         <h4 class="title is-5">Attention Visualization</h4>
 
@@ -392,10 +392,11 @@
         </p>
 
         <!-- Offline vs. online augmentation -->
+        <!-- <h4 class="title is-5">Data Augmentation Strategy Experiment</h4> -->
+
+
 
         <!-- Training set experiments visualization -->
-
-        <!-- Attention visualization -->
 
         <!-- Canonical success rates for all experiments -->
 
@@ -411,8 +412,8 @@
         <p>
           Our real-world task setup is built to mirror our simulation setup as closely as possible. We designate one arm to be compliant,
           applying a constant amount of force while the other arm moves according to the actions given to it by the policy. In contrast to
-          policies trained in simulation, our real-world policies predict two-dimensional delta actions in the axes perpendicular to the 
-          axis of insertion, in order to prevent potentially unsafe interactions that may occur as a result of a premature insertion attempt.
+          policies trained in simulation, our real-world policies predict 2-dimensional delta actions in the axes perpendicular to the 
+          axis of insertion (rather than 3-dimensional actions that include the axis along the direction of insertion), in order to prevent potentially unsafe interactions that may occur as a result of a premature insertion attempt.
           Once the peg and hole are aligned, the compliant arm automatically moves its held object forward to complete the insertion. We train
           our real-world models with the same hyperparameters as those in simulation, although we only initiate 1 training seed per model
           (rather than 6). Additionally, we evaluate each model at the end of the entire training process, rather than performing training set 
@@ -422,29 +423,16 @@
         <br/>
         <br/>
 
-        <h4 class="title is-5">Real World Results: Task Variation Difficulty</h4>
+        <h4 class="title is-5">Real World Task Variation Difficulty</h4>
 
         <!-- Canonical experiments graph -->
 
         <p class="justify">
-          <img src="media/figures/ablation_real_world_canonical.png" class="interpolation-image" width="480" align="right" style="margin:0% 4% " alt="Interpolate start reference image." />
+          <img src="media/figures/ablation_real_world_canonical.png" class="interpolation-image" width="640" align="right" style="margin:0% 4% " alt="Interpolate start reference image." />
           As a real-world analog to our simulation experiment aimed towards determining the difficulty of generalization for each of our task 
           variations, we evaluate a real-world policy trained on a dataset of human-generated demonstrations with no applied task variations
-          on real-world versions of a subset of our task variations. Reported success rates over 20 rollouts can be found in the following figure:
+          on real-world versions of a subset of our task variations. Reported success rates over 20 rollouts can be found in the accompanying figure:
         </p>
-
-        <!-- <p>
-          As a real-world analog to our simulation experiment aimed towards determining the difficulty of generalization for each of our task 
-          variations, we evaluate a real-world policy trained on a dataset of human-generated demonstrations with no applied task variations
-          on real-world versions of a subset of our task variations. Reported success rates over 20 rollouts can be found in the figure below:
-        </p> -->
-        <!-- <br/>
-
-        <div class="rows is-centered ">
-          <img src="media/figures/ablation_real_world_canonical.png" class="interpolation-image" 
-          alt="Interpolate start reference image."/>
-          <p></p>
-        </div> -->
         <br/>
 
         <p>
@@ -456,7 +444,8 @@
           Including <i>Grasp Pose</i> variations into the training dataset (as was done in simulation through online augmentation) may also improve
           performance in the real world.
         </p>
-
+        <br/>
+        <br/>
 
         <!-- Canonical experiments visualization -->
 
