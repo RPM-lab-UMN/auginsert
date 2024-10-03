@@ -20,9 +20,6 @@
   <script>
     function updateRealWorldVideo() {
       var variation = document.getElementById("task-variation").value;
-
-      // console.log("single", demo, task, inst)
-
       var video = document.getElementById("real-world-canonical-video");
       video.src = "media/results/real_world/" + 
                   "real_world_" +
@@ -34,9 +31,6 @@
 
     function updateAttnVisVideo() {
       var attnVisVariation = document.getElementById("task-variation-attnvis").value;
-
-      // console.log("qpred", task)
-
       var video = document.getElementById("attnvis-video");
       video.src = "media/results/attn_vis/" + 
                   attnVisVariation +
@@ -192,84 +186,6 @@
   </div>
 </section>
 
-<!-- <section class="hero teaser">
-  <div class="container is-fullhd">
-    <div class="hero-body">
-      <div class="container">
-        <div class="columns is-vcentered  is-centered">
-          <video id="teaser" autoplay muted loop height="100%">
-            <source src="media/intro/sim_rolling_v2.mp4"
-                    type="video/mp4">
-          </video>
-          </br>
-        </div>
-        <br>
-        <h2 class="subtitle has-text-centered">
-        <span class="dperact">AugInsert</span> is coming soon!
-        </h2>
-      </div>
-    </div>
-  </div>
-</section> -->
-
-
-<!-- <section class="hero is-light is-small">
-  <div class="hero-body">
-    <div class="container">
-      <div id="results-carousel" class="carousel results-carousel">
-        <div class="item item-steve">
-          <video poster="" id="steve" autoplay muted loop height="100%">
-            <source src="media/intro/1_handsan.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-fullbody">
-          <video poster="" id="fullbody" autoplay muted loop height="100%">
-            <source src="media/intro/2_food_bin.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-shiba">
-          <video poster="" id="shiba" autoplay muted loop height="100%">
-            <source src="media/intro/4_drawer.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-blueshirt">
-          <video poster="" id="blueshirt" autoplay muted loop height="100%">
-            <source src="media/intro/3_marker.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-shiba">
-          <video poster="" id="shiba" autoplay muted loop height="100%">
-            <source src="media/intro/5_stick.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-shiba">
-          <video poster="" id="shiba" autoplay muted loop height="100%">
-            <source src="media/intro/7_sweeping.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-       <div class="item item-chair-tp">
-          <video poster="" id="chair-tp" autoplay muted loop height="100%">
-            <source src="media/intro/6_blocks.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-<h2 class="subtitle has-text-centered">
-</br>
-  We also train <b>one multi-task Transformer from scratch</b> on 7 real-world tasks with just <b>53 demos</b> in total.
-</h2> -->
-
-
 <section class="section">
   <div class="container is-max-desktop">
 
@@ -293,7 +209,8 @@
             significant contribution of force-torque data to the robustness of our model.
           </p>
           <p>
-            For additional qualitative results and ablation studies, refer to the supplementary material on this webpage!
+            For additional qualitative results and ablation studies, including experiments carried out in our real-world environemnt, refer to the 
+            supplementary material on this webpage!
           </p>
         </div>
       </div>
@@ -423,15 +340,6 @@
         </div>
         <br/>
 
-        <!-- <div class="columns is-centered has-text-centered">
-            <iframe src="media/video/offline_aug_dataset.mp4"
-                    frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-          <p>
-            Visualization of augmented observations collected for the <strong>Expanded Visual+Noise</strong> Dataset
-          </p>
-        </div>
-        <br/> -->
-
         <p class="justify"></p>
           <img src="media/figures/ablation_training_set_extended.png" class="interpolation-image" width="640" align="right" style="margin:0% 4% " alt="Interpolate start reference image." />
           We report % success rate change from the canonical environment success rate on models trained on the <strong>Expanded Visual+Noise</strong> dataset and compare 
@@ -517,13 +425,13 @@
           <img src="media/figures/ablation_real_world_canonical.png" class="interpolation-image" width="640" align="right" style="margin:0% 4% " alt="Interpolate start reference image." />
           As a real-world analog to our simulation experiment aimed towards determining the difficulty of generalization for each of our task 
           variations, we evaluate a real-world policy trained on a dataset of human-generated demonstrations with no applied task variations
-          on real-world versions of a subset of our task variations. Reported success rates over 20 rollouts can be found in the accompanying figure:
+          on real-world versions of a subset of our task variations. Reported success rates over 20 rollouts can be found in the accompanying figure.
         </p>
         <br/>
 
         <p>
           <strong>Takeaways:</strong> Like in simulation, we observe that <i>Grasp Pose</i> variations seem to be the most difficult to generalize
-          to, while the model is able to handle the mostly unisensory perturbations of <i>Object Body Shape</i> and <i>Scene Appearance</i>. We also 
+          to, while the model is able to handle the mostly unisensory perturbations of <i>Object Body Shape</i> and <i>Scene Appearance</i> (Object Color and Lighting). We also 
           notice that our model struggles with <i>Grasp Pose</i> even when rotational grasp variations are removed; we hypothesize that this may be
           because a translational offset disrupts the desired behavior of lining up end-effector positions (given from proprioceptive input) in order
           to line up the peg and hole (i.e. solving the task can no longer be done by just matching the end-effector positions of the two arms). 
@@ -565,67 +473,35 @@
           </div>
         </div>
 
+        <br/>
+        <br/>
+
         <!-- Modality input ablation graph -->
 
-        <!-- </br>
-        </br> -->
+        <h4 class="title is-5">Real World Sensory Input Ablation Study</h4>
 
-        <!-- <h3 class="title is-4">Action Predictions</h3>
-        <div class="columns">
-          <div class="column has-text-centered">
-            <h3 class="title is-5">Q-Prediction Examples</h3>
+        <p class="justify">
+          <img src="media/figures/ablation_real_world_modinput.png" class="interpolation-image" width="640" align="right" style="margin:0% 4% " alt="Interpolate start reference image." />
+          We conduct a reduced real-world analog to the ablation study in our paper that investigated how much each sensory modality contributed 
+          to overall model performance by training models that only accepted a subset of input modalities (vision, touch, and/or proprioception).
+          We train real-world policies on a dataset of only human demonstrations and evaluate them on a smaller subset of our real-world task variations.
+          Reported success rates over 20 rollouts can be found in the accompanying figure.
+        </p>
+        <br/>
 
-            Visualize predictions for   
-            <div class="select is-small is-rounded">     
-              <select id="single-menu-qpred" onchange="updateQpredVideo()">
-              <option value="tomato" selected="selected">"put the tomatoes in the top bin"</option>
-              <option value="stick">"hit the green ball with the stick"</option>
-              <option value="handsan">"press the hand san"</option>
-              <option value="tape">"put the tape in the top drawer"</option>
-              </select>
-            </div>
-          </div> -->
-
+        <p>
+          <strong>Takeaways:</strong> Like in simulation, we observe that the removal of force-torque data as input (the <strong>No Touch</strong> model) leads to a significant drop in
+          success rate for all task variations compared to the <strong>Full Model</strong>, including the no-variations <i>Canonical</i> environment. We also see a small drop in performance
+          for the <strong>No Vision</strong> model, somewhat aligning with our findings in simulation of the insignificance of visual input for our task. Surprisingly, we see performance 
+          increases in all task variations for the <strong>No Prop.</strong> model. We hypothesize that the small ranges of possible end-effector poses in our training dataset due to the  
+          high precision required for our task may cause our models to not learn much useful information from the proprioceptive embedding, though this observation may of course also be 
+          the result of a low sample size of trained models. Averaging the performance of models trained over multiple seeds (as was done in simulation), which was not able to be performed 
+          due to time constraints, may give us some more robust results.
+        </p>
       </div>
     </div>
   </div>
 </section>
-
-<!-- <video id="q-pred-video"
-       muted
-       autoplay
-       loop
-       width="100%">
-  <source src="media/results/qpred/tomato.mp4"
-          type="video/mp4">
-</video> -->
-
-<!-- <br>
-<br> -->
-<!-- <section class="section">
-  <div class="container is-max-widescreen">
-
-    <div class="rows">
-      <h2 class="title is-3">Emergent Properties</h2>
-
-      <h3 class="title is-4">Tracking Objects</h3>
-      A selected example of tracking an unseen hand sanitizer instance with an agent that was trained on a single object with 5 "press the handsan" demos. Since <span class="dperact">PerAct</span> focuses on actions, it doesn't need a complete representation of the bottle, and only has to predict <b><i>where</i> to press</b> the sanitizer.
-
-      <video id="tracking-objects"
-             muted
-             autoplay
-             loop
-             width="99%">
-        <source src="media/results/animations/handsan_tracking_v2.mp4" 
-                type="video/mp4">
-      </video>
-
-    </div>
-
-  </div>
-
-</section> -->
-
 
 <!-- <section class="section" id="BibTeX">
   <div class="container is-max-widescreen content">
