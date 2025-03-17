@@ -193,6 +193,24 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
+            Operating in unstructured environments like households requires robotic policies that are robust to out-of-distribution
+            conditions. Although much works has been done in evaluating robustness for visuomotor policies, the robustness evaluation
+            of a multisensory approach that includes force-torque sensing remains largely unexplored. 
+          </p>
+          <p>
+            This work introduces a novel, factor-based evaluation framework with the hoal of assessing the robustness of multisensory 
+            policies in a peg-in-hole object assembly task. To this end, we develop a multisensory policy framework utilizing the 
+            Perceiver IO architecture to learn the task. We investigate which factors pose the greatest generalization challenges in 
+            object assembly and explore a simple multisensory data augmentation technique to enhance out-of-distribution performance. 
+            We provide a simulation environment enabling controlled evaluation of these factors. 
+          </p>
+          <p>
+            Our results reveal that multisensory variations such as <strong>Grasp Pose</strong> present the most significant challenges
+            for robustness, and naive unisensory data augmentation applied independently to each sensory modality proves insufficient to
+            overcome them. Additionally, we find force-torque sensing to be the most informative modality for our contact-rich assembly 
+            task, with vision being the least informative. Finally we briefly discuss supporting real-world experimental results. 
+          </p>
+          <!-- <p>
             This paper primarily focuses on learning robust visual-force policies in the context of high-precision object assembly
             tasks. Specifically, we focus on the <i>contact phase</i> of the assembly task where both objects (peg and hole) have made 
             contact and the objective lies in maneuvering the objects to complete the assembly. Moreover, we aim to learn contact-rich
@@ -206,10 +224,10 @@
             our proposed data augmentation method helps in learning a multisensory manipulation policy that is robust to unseen instances of these 
             variations, particularly physical variations such as <strong>grasp pose</strong>. Additionally, our ablative studies show the 
             significant contribution of force-torque data to the robustness of our model.
-          </p>
+          </p> -->
           <p>
-            For additional qualitative results and ablation studies, including experiments carried out in our real-world environment, refer to the 
-            supplementary material on this webpage!
+            For additional experiments and qualitative results, including supplemental experiments carried out in our real-world environment, please 
+            refer to the supplementary material on this webpage!
           </p>
         </div>
       </div>
@@ -252,6 +270,134 @@
         <br/>
 
         <h2 class="title is-3">Supplementary Experiments and Results</h2>
+
+        <h3 class="title is-4">Real World Experiments</h3>
+
+        <!-- Uni vs. multisensory data augmentation real-world experiment -->
+        <h4 class="title is-5">Unisensory vs. Multisensory Data Augmentation</h4>
+
+        <p class="justify">
+          <img src="media/figures/ablation_real_world_canonical.png" class="interpolation-image" width="640" align="right" style="margin:0% 4% " alt="Interpolate start reference image." />
+          As a real-world analog to our simulation experiment aimed towards determining the difficulty of generalization for each of our task 
+          variations, we evaluate a real-world policy trained on a dataset of human-generated demonstrations with no applied task variations
+          on real-world versions of a subset of our task variations. Reported success rates over 20 rollouts can be found in the accompanying figure.
+        </p>
+        <br/>
+
+        <p>
+          <strong>Takeaways:</strong> Like in simulation, we observe that <i>Grasp Pose</i> variations seem to be the most difficult to generalize
+          to, while the model is able to handle the mostly unisensory perturbations of <i>Object Body Shape</i> and <i>Scene Appearance</i> (Object Color and Lighting). We also 
+          notice that our model struggles with <i>Grasp Pose</i> even when rotational grasp variations are removed; we hypothesize that this may be
+          because a translational offset disrupts the desired behavior of lining up end-effector positions (given from proprioceptive input) in order
+          to line up the peg and hole (i.e. solving the task can no longer be done by just matching the end-effector positions of the two arms). 
+          Including <i>Grasp Pose</i> variations into the training dataset (as was done in simulation through online augmentation) may also improve
+          performance in the real world.
+        </p>
+        <br/>
+        <br/>
+
+        <!-- Real world setup definition -->
+
+        <!-- <h4 class="title is-5">Real World Experiment Setup</h4>
+
+        <p>
+          Our real-world task setup is built to mirror our simulation setup as closely as possible. We designate one arm to be compliant,
+          applying a constant amount of force while the other arm moves according to the actions given to it by the policy. In contrast to
+          policies trained in simulation, our real-world policies predict 2-dimensional delta actions in the axes perpendicular to the 
+          axis of insertion (rather than 3-dimensional actions that include the axis along the direction of insertion), in order to prevent potentially unsafe interactions that may occur as a result of a premature insertion attempt.
+          Once the peg and hole are aligned, the compliant arm automatically moves its held object forward to complete the insertion. We train
+          our real-world models with the same hyperparameters as those in simulation, although we only initiate 1 training seed per model
+          (rather than 6). Additionally, we evaluate each model at the end of the entire training process, rather than performing training set 
+          rollouts during the training process to determine the best checkpoint. Successes and failures follow the same general criteria as in 
+          simulation, though a human manually annotates successes and failures per trial. 
+        </p>
+        <br/>
+        <br/> -->
+
+        <h4 class="title is-5">Real World Task Variation Difficulty</h4>
+
+        <!-- Canonical experiments graph -->
+
+        <p class="justify">
+          <img src="media/figures/ablation_real_world_canonical.png" class="interpolation-image" width="640" align="right" style="margin:0% 4% " alt="Interpolate start reference image." />
+          As a real-world analog to our simulation experiment aimed towards determining the difficulty of generalization for each of our task 
+          variations, we evaluate a real-world policy trained on a dataset of human-generated demonstrations with no applied task variations
+          on real-world versions of a subset of our task variations. Reported success rates over 20 rollouts can be found in the accompanying figure.
+        </p>
+        <br/>
+
+        <p>
+          <strong>Takeaways:</strong> Like in simulation, we observe that <i>Grasp Pose</i> variations seem to be the most difficult to generalize
+          to, while the model is able to handle the mostly unisensory perturbations of <i>Object Body Shape</i> and <i>Scene Appearance</i> (Object Color and Lighting). We also 
+          notice that our model struggles with <i>Grasp Pose</i> even when rotational grasp variations are removed; we hypothesize that this may be
+          because a translational offset disrupts the desired behavior of lining up end-effector positions (given from proprioceptive input) in order
+          to line up the peg and hole (i.e. solving the task can no longer be done by just matching the end-effector positions of the two arms). 
+          Including <i>Grasp Pose</i> variations into the training dataset (as was done in simulation through online augmentation) may also improve
+          performance in the real world.
+        </p>
+        <br/>
+        <br/>
+
+        <!-- Canonical experiments visualization -->
+
+        <div class="columns">
+          <div class="column has-text-centered">
+            <h3 class="title is-5">Real World Rollouts: Model Trained on <i>No Variations</i></h3>
+
+            Model evaluated on
+            <div class="select is-small">
+              <select id="task-variation" onchange="updateRealWorldVideo()">
+              <option value="canonical" selected="selected">Canonical (No Variations)</option>
+              <option value="grasp">Grasp Pose (XT+ZR)</option>
+              <option value="body_shape">Object Body Shape</option>
+              <option value="visual">Visual (Lighting/Object Color)</option>
+              </select>
+            </div>
+            task variation (videos sped up x2)
+            <br/>
+            <br/>
+            <video id="real-world-canonical-video"
+                   muted
+                   autoplay
+                   loop
+                   width="80%">
+              <source src="media/results/real_world/real_world_canonical.mp4"
+                      type="video/mp4">
+            </video>
+            <br/>
+            <br/>
+            <p><strong>NOTE:</strong> 5 rollouts per video (20 rollouts for experiment results).</p>
+          </div>
+        </div>
+
+        <br/>
+        <br/>
+
+        <!-- Modality input ablation graph -->
+
+        <h4 class="title is-5">Real World Sensory Input Ablation Study</h4>
+
+        <p class="justify">
+          <img src="media/figures/ablation_real_world_modinput.png" class="interpolation-image" width="640" align="right" style="margin:0% 4% " alt="Interpolate start reference image." />
+          We conduct a reduced real-world analog to the ablation study in our paper that investigated how much each sensory modality contributed 
+          to overall model performance by training models that only accepted a subset of input modalities (vision, touch, and/or proprioception).
+          We train real-world policies on a dataset of only human demonstrations and evaluate them on a smaller subset of our real-world task variations.
+          Reported success rates over 20 rollouts can be found in the accompanying figure.
+        </p>
+        <br/>
+
+        <p>
+          <strong>Takeaways:</strong> Like in simulation, we observe that the removal of force-torque data as input (the <strong>No Touch</strong> model) leads to a significant drop in
+          success rate for all task variations compared to the <strong>Full Model</strong>, including the no-variations <i>Canonical</i> environment. We also see a small drop in performance
+          for the <strong>No Vision</strong> model, somewhat aligning with our findings in simulation of the insignificance of visual input for our task. Surprisingly, we see performance 
+          increases in all task variations for the <strong>No Prop.</strong> model. We hypothesize that the small ranges of possible end-effector poses in our training dataset due to the  
+          high precision required for our task may cause our models to not learn much useful information from the proprioceptive embedding, though this observation may of course also be 
+          the result of a low sample size of trained models. Averaging the performance of models trained over multiple seeds (as was done in simulation), which was not able to be performed 
+          due to time constraints, may give us some more robust results.
+        </p>
+
+        <br/>
+        <br/>
 
         <h3 class="title is-4">Additional Simulation Experiments</h3>
 
@@ -391,111 +537,6 @@
         
         <p>
           <strong>Right Plot:</strong> Success rates on <i>Canonical</i> environment for models with different modality input combinations, trained on <i>Grasp Pose</i>, <i>Peg/Hole Shape</i>, and <i>Object Body Shape</i>. This graph corresponds to the results reported in the bottom graph of Figure 7 in our paper. We especially note the instability of performance in the <strong>No Vision</strong> model, which provides context for its omission in the corresponding plot in our paper.
-        </p>
-
-        <br/>
-        <br/>
-
-        <h3 class="title is-4">Real World Experiments</h3>
-
-        <!-- Real world setup definition -->
-
-        <h4 class="title is-5">Real World Experiment Setup</h4>
-
-        <p>
-          Our real-world task setup is built to mirror our simulation setup as closely as possible. We designate one arm to be compliant,
-          applying a constant amount of force while the other arm moves according to the actions given to it by the policy. In contrast to
-          policies trained in simulation, our real-world policies predict 2-dimensional delta actions in the axes perpendicular to the 
-          axis of insertion (rather than 3-dimensional actions that include the axis along the direction of insertion), in order to prevent potentially unsafe interactions that may occur as a result of a premature insertion attempt.
-          Once the peg and hole are aligned, the compliant arm automatically moves its held object forward to complete the insertion. We train
-          our real-world models with the same hyperparameters as those in simulation, although we only initiate 1 training seed per model
-          (rather than 6). Additionally, we evaluate each model at the end of the entire training process, rather than performing training set 
-          rollouts during the training process to determine the best checkpoint. Successes and failures follow the same general criteria as in 
-          simulation, though a human manually annotates successes and failures per trial. 
-        </p>
-        <br/>
-        <br/>
-
-        <h4 class="title is-5">Real World Task Variation Difficulty</h4>
-
-        <!-- Canonical experiments graph -->
-
-        <p class="justify">
-          <img src="media/figures/ablation_real_world_canonical.png" class="interpolation-image" width="640" align="right" style="margin:0% 4% " alt="Interpolate start reference image." />
-          As a real-world analog to our simulation experiment aimed towards determining the difficulty of generalization for each of our task 
-          variations, we evaluate a real-world policy trained on a dataset of human-generated demonstrations with no applied task variations
-          on real-world versions of a subset of our task variations. Reported success rates over 20 rollouts can be found in the accompanying figure.
-        </p>
-        <br/>
-
-        <p>
-          <strong>Takeaways:</strong> Like in simulation, we observe that <i>Grasp Pose</i> variations seem to be the most difficult to generalize
-          to, while the model is able to handle the mostly unisensory perturbations of <i>Object Body Shape</i> and <i>Scene Appearance</i> (Object Color and Lighting). We also 
-          notice that our model struggles with <i>Grasp Pose</i> even when rotational grasp variations are removed; we hypothesize that this may be
-          because a translational offset disrupts the desired behavior of lining up end-effector positions (given from proprioceptive input) in order
-          to line up the peg and hole (i.e. solving the task can no longer be done by just matching the end-effector positions of the two arms). 
-          Including <i>Grasp Pose</i> variations into the training dataset (as was done in simulation through online augmentation) may also improve
-          performance in the real world.
-        </p>
-        <br/>
-        <br/>
-
-        <!-- Canonical experiments visualization -->
-
-        <div class="columns">
-          <div class="column has-text-centered">
-            <h3 class="title is-5">Real World Rollouts: Model Trained on <i>No Variations</i></h3>
-
-            Model evaluated on
-            <div class="select is-small">
-              <select id="task-variation" onchange="updateRealWorldVideo()">
-              <option value="canonical" selected="selected">Canonical (No Variations)</option>
-              <option value="grasp">Grasp Pose (XT+ZR)</option>
-              <option value="body_shape">Object Body Shape</option>
-              <option value="visual">Visual (Lighting/Object Color)</option>
-              </select>
-            </div>
-            task variation (videos sped up x2)
-            <br/>
-            <br/>
-            <video id="real-world-canonical-video"
-                   muted
-                   autoplay
-                   loop
-                   width="80%">
-              <source src="media/results/real_world/real_world_canonical.mp4"
-                      type="video/mp4">
-            </video>
-            <br/>
-            <br/>
-            <p><strong>NOTE:</strong> 5 rollouts per video (20 rollouts for experiment results).</p>
-          </div>
-        </div>
-
-        <br/>
-        <br/>
-
-        <!-- Modality input ablation graph -->
-
-        <h4 class="title is-5">Real World Sensory Input Ablation Study</h4>
-
-        <p class="justify">
-          <img src="media/figures/ablation_real_world_modinput.png" class="interpolation-image" width="640" align="right" style="margin:0% 4% " alt="Interpolate start reference image." />
-          We conduct a reduced real-world analog to the ablation study in our paper that investigated how much each sensory modality contributed 
-          to overall model performance by training models that only accepted a subset of input modalities (vision, touch, and/or proprioception).
-          We train real-world policies on a dataset of only human demonstrations and evaluate them on a smaller subset of our real-world task variations.
-          Reported success rates over 20 rollouts can be found in the accompanying figure.
-        </p>
-        <br/>
-
-        <p>
-          <strong>Takeaways:</strong> Like in simulation, we observe that the removal of force-torque data as input (the <strong>No Touch</strong> model) leads to a significant drop in
-          success rate for all task variations compared to the <strong>Full Model</strong>, including the no-variations <i>Canonical</i> environment. We also see a small drop in performance
-          for the <strong>No Vision</strong> model, somewhat aligning with our findings in simulation of the insignificance of visual input for our task. Surprisingly, we see performance 
-          increases in all task variations for the <strong>No Prop.</strong> model. We hypothesize that the small ranges of possible end-effector poses in our training dataset due to the  
-          high precision required for our task may cause our models to not learn much useful information from the proprioceptive embedding, though this observation may of course also be 
-          the result of a low sample size of trained models. Averaging the performance of models trained over multiple seeds (as was done in simulation), which was not able to be performed 
-          due to time constraints, may give us some more robust results.
         </p>
       </div>
     </div>
