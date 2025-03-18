@@ -210,21 +210,6 @@
             overcome them. Additionally, we find force-torque sensing to be the most informative modality for our contact-rich assembly 
             task, with vision being the least informative. Finally we briefly discuss supporting real-world experimental results. 
           </p>
-          <!-- <p>
-            This paper primarily focuses on learning robust visual-force policies in the context of high-precision object assembly
-            tasks. Specifically, we focus on the <i>contact phase</i> of the assembly task where both objects (peg and hole) have made 
-            contact and the objective lies in maneuvering the objects to complete the assembly. Moreover, we aim to learn contact-rich
-            manipulation policies with multisensory inputs on limited expert data by expanding human demonstrations via online data
-            augmentation.
-          </p>
-          <p>
-            We develop a simulation environment with a dual-arm robot manipulator to evaluate the effect of augmented expert demonstration
-            data. Our focus is on evaluating the robustness of our model with respect to certain task variations: <strong>grasp pose, peg/hole 
-            shape object body shape, scene appearance, camera pose</strong>, and <strong>force-torque/proprioception noise</strong>. We show that 
-            our proposed data augmentation method helps in learning a multisensory manipulation policy that is robust to unseen instances of these 
-            variations, particularly physical variations such as <strong>grasp pose</strong>. Additionally, our ablative studies show the 
-            significant contribution of force-torque data to the robustness of our model.
-          </p> -->
           <p>
             For additional experiments and qualitative results, including supplemental experiments carried out in our real-world environment, please 
             refer to the supplementary material on this webpage!
@@ -277,21 +262,25 @@
         <h4 class="title is-5">Unisensory vs. Multisensory Data Augmentation</h4>
 
         <p class="justify">
-          <img src="media/figures/ablation_real_world_canonical.png" class="interpolation-image" width="640" align="right" style="margin:0% 4% " alt="Interpolate start reference image." />
-          As a real-world analog to our simulation experiment aimed towards determining the difficulty of generalization for each of our task 
-          variations, we evaluate a real-world policy trained on a dataset of human-generated demonstrations with no applied task variations
-          on real-world versions of a subset of our task variations. Reported success rates over 20 rollouts can be found in the accompanying figure.
+          <img src="media/figures/real_world_aug_study.png" class="interpolation-image" width="640" align="right" style="margin:0% 4% " alt="Interpolate start reference image." />
+          To validate our exploration of multisensory online augmentation in the real world, we train models with different levels of data augmentation and evaluate
+          their performance in real-world versions of each task variation. The <strong>Canonical</strong> model is trained only on the original dataset of 50 human 
+          demonstrations with no data augmentation. The <strong>Unisensory Augmentation</strong> model was trained using conventional offline data augmentation methods 
+          applied to each modality individually (resized crop, horizontal flip, and color jitter for RGB data, and random scaling in the range of 0.1 to 2.0 for force-torque data).
+          Finally, the <strong>Multisensory Augmentation</strong> model is trained on the original dataset of 50 human demonstrations alongside 1 <i>Grasp Pose (XT)</i> augmentation 
+          for each human demonstration. When performing online augmentation, each grasp perturbation was sampled independently between each human-generated trajectory. Reported success
+          rates over 20 rollouts can be found in the accompanying figure.
         </p>
         <br/>
 
         <p>
-          <strong>Takeaways:</strong> Like in simulation, we observe that <i>Grasp Pose</i> variations seem to be the most difficult to generalize
-          to, while the model is able to handle the mostly unisensory perturbations of <i>Object Body Shape</i> and <i>Scene Appearance</i> (Object Color and Lighting). We also 
-          notice that our model struggles with <i>Grasp Pose</i> even when rotational grasp variations are removed; we hypothesize that this may be
-          because a translational offset disrupts the desired behavior of lining up end-effector positions (given from proprioceptive input) in order
-          to line up the peg and hole (i.e. solving the task can no longer be done by just matching the end-effector positions of the two arms). 
-          Including <i>Grasp Pose</i> variations into the training dataset (as was done in simulation through online augmentation) may also improve
-          performance in the real world.
+          <strong>Takeaways:</strong> Once again, we see that <i>Grasp Pose</i> variations lead to the largest success rate drops for the <strong>Canonical</strong> model, while unisensory 
+          variations such as <i>Scene Appearance</i> have little to no impact. The <strong>Multisensory Augmentation</strong> model achieves the highest success rate on <i>Grasp Pose</i> variations,
+          while maintaining slightly reduced performance on many of the other task variations compared to the <strong>Canonical</strong> model, achieving the smallest generalization gap between the
+          <i>Canonical</i> environment and <i>Grasp Variations</i> environment and validating our simulation results to an extent. The <strong>Unisensory Augmentation</strong> model surprisingly failed to learn an adequate policy to solve the 
+          base task, although it was still able to achieve higher performance on <i>Grasp Pose</i> variations than the <strong>Canonical</strong> model. We hypothesize that this may be due to 
+          training instabilities with the offline data augmentation method or the saturation of the MLP policy network. In the future, we hope to expand this real-world study by introducing more 
+          augmentations per human demonstration, which may futher improve the performance of the <strong>Multisensory Augmentation</strong> model.
         </p>
         <br/>
         <br/>
