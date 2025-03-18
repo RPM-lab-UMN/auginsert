@@ -256,7 +256,7 @@
 
         <h2 class="title is-3">Supplementary Experiments and Results</h2>
 
-        <h3 class="title is-4">Real World Experiments</h3>
+        <h3 class="title is-4">Additional Real World Experiments</h3>
 
         <!-- Uni vs. multisensory data augmentation real-world experiment -->
         <h4 class="title is-5">Unisensory vs. Multisensory Data Augmentation</h4>
@@ -264,10 +264,10 @@
         <p class="justify">
           <img src="media/figures/real_world_aug_study.png" class="interpolation-image" width="640" align="right" style="margin:0% 4% " alt="Interpolate start reference image." />
           To validate our exploration of multisensory online augmentation in the real world, we train models with different levels of data augmentation and evaluate
-          their performance in real-world versions of each task variation. The <strong>Canonical</strong> model is trained only on the original dataset of 50 human 
+          their performance in real-world versions of each task variation. The <strong>Canonical</strong> model was trained only on the original dataset of 50 human 
           demonstrations with no data augmentation. The <strong>Unisensory Augmentation</strong> model was trained using conventional offline data augmentation methods 
           applied to each modality individually (resized crop, horizontal flip, and color jitter for RGB data, and random scaling in the range of 0.1 to 2.0 for force-torque data).
-          Finally, the <strong>Multisensory Augmentation</strong> model is trained on the original dataset of 50 human demonstrations alongside 1 <i>Grasp Pose (XT)</i> augmentation 
+          Finally, the <strong>Multisensory Augmentation</strong> model was trained on the original dataset of 50 human demonstrations alongside 1 <i>Grasp Pose (XT)</i> augmentation 
           for each human demonstration. When performing online augmentation, each grasp perturbation was sampled independently between each human-generated trajectory. Reported success
           rates over 20 rollouts can be found in the accompanying figure.
         </p>
@@ -303,11 +303,11 @@
         <br/>
         <br/> -->
 
-        <h4 class="title is-5">Real World Task Variation Difficulty</h4>
+        <!-- <h4 class="title is-5">Real World Task Variation Difficulty</h4> -->
 
         <!-- Canonical experiments graph -->
 
-        <p class="justify">
+        <!-- <p class="justify">
           <img src="media/figures/ablation_real_world_canonical.png" class="interpolation-image" width="640" align="right" style="margin:0% 4% " alt="Interpolate start reference image." />
           As a real-world analog to our simulation experiment aimed towards determining the difficulty of generalization for each of our task 
           variations, we evaluate a real-world policy trained on a dataset of human-generated demonstrations with no applied task variations
@@ -325,7 +325,7 @@
           performance in the real world.
         </p>
         <br/>
-        <br/>
+        <br/> -->
 
         <!-- Canonical experiments visualization -->
 
@@ -338,11 +338,12 @@
               <select id="task-variation" onchange="updateRealWorldVideo()">
               <option value="canonical" selected="selected">Canonical (No Variations)</option>
               <option value="grasp">Grasp Pose (XT+ZR)</option>
-              <option value="body_shape">Object Body Shape</option>
-              <option value="visual">Visual (Lighting/Object Color)</option>
+              <!-- <option value="peg_hole_shape">Peg/Hole Shape</option> -->
+              <!-- <option value="body_shape">Object Body Shape</option> -->
+              <option value="visual">Scene Appearance</option>
               </select>
             </div>
-            task variation (videos sped up x2)
+            task variation (videos sped up x4)
             <br/>
             <br/>
             <video id="real-world-canonical-video"
@@ -364,7 +365,7 @@
 
         <!-- Modality input ablation graph -->
 
-        <h4 class="title is-5">Real World Sensory Input Ablation Study</h4>
+        <!-- <h4 class="title is-5">Real World Sensory Input Ablation Study</h4>
 
         <p class="justify">
           <img src="media/figures/ablation_real_world_modinput.png" class="interpolation-image" width="640" align="right" style="margin:0% 4% " alt="Interpolate start reference image." />
@@ -386,7 +387,7 @@
         </p>
 
         <br/>
-        <br/>
+        <br/> -->
 
         <h3 class="title is-4">Additional Simulation Experiments</h3>
 
